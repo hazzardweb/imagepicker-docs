@@ -41,7 +41,7 @@ Whether crop is enabled or not.
 
 ### aspectRatio
 
-Aspect ratio of w/h (e.g. 1 for square).
+Aspect ratio of width/height (e.g. 1 for square).
 - Type: _decimal_
 - Default: `n/a`
 
@@ -66,7 +66,7 @@ Maximum width/height, use 0 for unbounded dimension
 
 Set an initial selection area.
 
-- Type: _array [ x, y, x2, y2 ]_
+- Type: _array [ x1, y1, x2, y2 ]_
 - Default: `n/a`
 
 ### swf
@@ -86,20 +86,36 @@ Flash swf width/height.
 
 ### data
 
-Custom data to be passed to server (e.g. `{post_id: 123, category_id: 321}`) 
+Custom data to be passed to server.
 
-- Type: _object_
-- Default: `n/a`
+- Type: _object_ / _function_
+- Default: `{}`
 
-On the server side you can grab the custom data inside the callbacks using the `$_POST['data']` array. <br>
-(e.g. `$post_id = $_POST['data']['post_id'];`)
+As object: `data: { post_id: 123, category_id: 321 }`
+
+Or as function:
+
+```javascript
+data: function() {
+    return {
+        post_id: $('#my-post-input').val(),
+        category_id: 321,
+    };
+}
+```
+
+On the server side you can grab the custom data using the `$_REQUEST['data']` array. <br>
+
+```php
+$postId = $_REQUEST['data']['post_id'];
+```
 
 ### messages
 
 Object of messages.
 
 - Type: _object_
-- Default: see `jquery.imgpicker.js`
+- Default: see `assets/js/jquery.imgpicker.js`
 
 ## Callback Options
 
@@ -112,7 +128,6 @@ $('#myModal').imgPicker({
         alert('Image deleted');
     },
     cropSuccess: function(image) {
-        console.log(image);
         this.modal('hide'); // Will call the modal method
     }
 });

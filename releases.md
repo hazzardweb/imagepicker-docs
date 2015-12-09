@@ -1,5 +1,15 @@
 # Release Notes
+
+- [Image Picker 1.3](#image-picker-13)
 - [Image Picker 1.2](#image-picker-12)
+
+## Image Picker 1.3
+
+- The [data](options.md#data) option can now be a function.
+- Fix media stream deprecated method.
+- Send custom data on get request.
+- Cleaned up the code.
+- Few other minor updates.
 
 ## Image Picker 1.2
 
@@ -19,5 +29,3 @@ Here are some of the new features:
 - Responsive design
 - Better code
 - In depth documentation
-
-If you have other suggestions/requests fell free to ask in the comments section on CodeCanyon or send me a private message [here](http://codecanyon.net/user/HazzardWeb).

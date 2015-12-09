@@ -11,19 +11,23 @@ The same thing applies for `crop_start`, make sure the image belongs to the curr
 You can use the included Database class to make these checks. Example for the `delete` callback:
 
 ```php
-// Assuming  that you have loaded the Database class:
-'delete' => function($filename, $instance) {
-    global $user_id;
-    // Select the image for the current user
+// Assuming  that you have loaded the Database class.
+
+'delete' => function ($filename) {
+    $userId = $_SESSION['user_id']; // Get the current user id.
+
+    // Select the image for the current user.
     $db = new Database;
+    
     $results = $db->table('example_images')
-              ->where('user_id', $user_id)
-              ->where('image', $filename)
-              ->limit(1)
-              ->get();
-    if ($results) 
+                  ->where('user_id', $userId)
+                  ->where('image', $filename)
+                  ->get();
+
+    if (count($results)) {
        return true;
-    else 
+    } else {
        return false;
+    }
 },
 ```

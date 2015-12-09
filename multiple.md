@@ -8,19 +8,21 @@ First set up the PHP code (see `server/upload_multi.php`):
 <?php
 session_start();
 
-// Let's say that you grab the user id from the session
-$user_id = $_SESSION['user_id'];
-
-// Include ImgPicker.php class
-require dirname(__FILE__) . '/ImgPicker.php';
-
 // Include Database classs
-require dirname(__FILE__) . '/Database/Database.php';
+require  __DIR__.'/DB/Database.php';
+
+Database::connect(require __DIR__.'/DB/config.php');
+
+// Include ImgPicker class
+require __DIR__ . '/ImgPicker.php';
+
+// Let's say that you grab the user id from the session
+$userId = $_SESSION['user_id'];
 
 // ImgPicker options
 $options = array(
     // Upload directory path
-    'upload_dir' => dirname(__FILE__) . '/../files/',
+    'upload_dir' => __DIR__ . '/../files/',
     // Upload directory url
     'upload_url' => 'files/',
     // Image versions
@@ -32,12 +34,11 @@ $options = array(
             'max_height' => 200
         )
     ),
-    'load' => function($instance) {
-        global $user_id;
+    'load' => function () use ($userId) {
         // Load all images for the current user
         $db = new Database;
         $results = $db->table('example_images')
-                      ->where('user_id', $user_id)
+                      ->where('user_id', $userId)
                       ->get();
         
         $images = array();
@@ -48,19 +49,17 @@ $options = array(
     },
     
     // Upload start callback
-    'upload_start' => function($image, $instance) {
-        global $user_id;
-        // Name the temp image as $user_id
-        $image->name = '~'.$user_id.'.'.$image->type;   
+    'upload_start' => function ($image) use ($userId) {
+        // Name the temp image as $userId
+        $image->name = '~'.$userId.'.'.$image->type;   
     },
     // Crop start callback
-    'crop_start' => function($image, $instance) {
-       global $user_id;
+    'crop_start' => function ($image) use ($userId) {
        // Change the name of the image
-       $image->name = $user_id.'.'.$image->type;
+       $image->name = $userId.'.'.$image->type;
     },
     // Crop complete callback
-    'crop_complete' => function($image, $instance) {
+    'crop_complete' => function ($image) use ($userId) {
         $data = array(
             'user_id' => 1, // Set a user
             'image' => $image->name

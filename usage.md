@@ -14,15 +14,15 @@ This is how this file should look like:
 session_start();
 
 // Let's say that you grab the user id from the session
-$user_id = $_SESSION['user_id'];
+$userId = $_SESSION['user_id'];
 
 // Include ImgPicker.php class
-require dirname(__FILE__) . '/ImgPicker.php';
+require __DIR__ . '/ImgPicker.php';
 
 // ImgPicker options
 $options = array(
     // Upload directory path
-    'upload_dir' => dirname(__FILE__) . '/../files/',
+    'upload_dir' => __DIR__ . '/../files/',
     // Upload directory url
     'upload_url' => 'files/',
     // Image versions
@@ -35,19 +35,17 @@ $options = array(
         )
     ),
     // Upload start callback
-    'upload_start' => function ($image, $instance) {
-        global $user_id;
-        // Name the temp image as $user_id
-        $image->name = '~'.$user_id.'.'.$image->type; 
+    'upload_start' => function ($image) use ($userId) {
+        // Name the temp image as $userId
+        $image->name = '~'.$userId.'.'.$image->type; 
     },
     // Crop start callback
-    'crop_start' => function ($image, $instance) {
-       global $user_id;
+    'crop_start' => function ($image) use ($userId) {
        // Change the name of the image
-       $image->name = $user_id.'.'.$image->type;
+       $image->name = $userId.'.'.$image->type;
     },
     // Crop complete callback
-    'crop_complete' => function ($image, $instance) {
+    'crop_complete' => function ($image) {
         // Save the image to database
     }
 );
@@ -68,7 +66,7 @@ First you have to include the required files:
 <!-- JavaScript -->
 <script src="assets/js/jquery-1.11.0.min.js"></script>
 <script src="assets/js/jquery.Jcrop.min.js"></script>
-<script src="assets/js/jquery.imgpicker.js"></script> <!-- for production use jquery.imgpicker.min.js-->
+<script src="assets/js/jquery.imgpicker.js"></script>
 ```
 
 `bootstrap.css` is a trimmed version of Bootstrap, has only buttons, alert and progress bar. So even if you don't want to include Bootstrap in your website, this small file will not affect your website css.
@@ -136,20 +134,17 @@ And finaly in JavaScript call the `.imgPicker()` jQuery method with `#myModal` a
 ```javascript
 <script>
 $(function() {
-    // We use this so the image won't be cached
-    var time = function(){return'?'+new Date().getTime()};
-
     $('#myModal').imgPicker({
         url: 'server/upload_avatar.php',
         aspectRatio: 1, // Crop aspect ratio
         // Delete callback
         deleteComplete: function() {
-            $('#avatar').attr('src', 'assets/img/default-avatar.png');
+            $('#avatar').attr('src', 'http://www.gravatar.com/avatar/0?d=mm&s=150');
             this.modal('hide');
         },
         // Crop success callback
         cropSuccess: function(image) {
-            $('#avatar').attr('src', image.versions.avatar.url + time());
+            $('#avatar').attr('src', image.versions.avatar.url +'?'+new Date().getTime());
             this.modal('hide');
         }
     });

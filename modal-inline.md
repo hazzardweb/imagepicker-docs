@@ -22,7 +22,7 @@ The fist option is to have the ImagePicker as a modal. For this you have to defi
 
 
 <!-- Image -->
-<img src="assets/img/default-avatar.png" id="avatar" width="200" height="200">
+<img src="http://www.gravatar.com/avatar/0?d=mm&s=150" id="avatar" width="200" height="200">
 
 <!-- Button trigger modal -->
 <button type="button" data-ip-modal="#myModal">Launch modal</button>
@@ -82,7 +82,7 @@ $(function() {
         aspectRatio: 1,
         deleteComplete: function() {
             // Restore default avatar
-            $('#avatar').attr('src', 'assets/img/default-avatar.png');
+            $('#avatar').attr('src', 'http://www.gravatar.com/avatar/0?d=mm&s=150');
             // Hide modal
             this.modal('hide');
         },
@@ -146,7 +146,7 @@ $(function() {
         url: 'server/upload_avatar.php',
         aspectRatio: 1,
         deleteComplete: function() {
-            $('#avatar').attr('src', 'assets/img/default-avatar.png');
+            $('#avatar').attr('src', 'http://www.gravatar.com/avatar/0?d=mm&s=150');
             this.modal('hide');
         },
         cropSuccess: function(image) {

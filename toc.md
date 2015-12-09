@@ -1,6 +1,6 @@
 - Preface
-	- [Introduction](introduction.md)
 	- [Release Notes](releases.md)
+    - [Upgrade Guide](upgrade.md)
 
 - Getting Started
     - [Installation](installation.md)

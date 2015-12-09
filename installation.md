@@ -32,8 +32,8 @@ This is how the PHP class options look like:
 
 ```php
 $options = array(
-    'upload_dir' => dirname(__FILE__) . '/../files/',
-    'upload_url' => 'http://localhost/imgPicker/files/',
+    'upload_dir' => __DIR__ . '/../files/',
+    'upload_url' => 'files/',
     'accept_file_types' => 'png|jpg|jpeg|gif',
     'versions' => array(
         'avatar' => array(
@@ -60,5 +60,7 @@ Image Picker works on all major browsers (including mobile) with some exceptions
 - Opera
 - Safari 5+
 - IE8+
+
+Starting with version 47, Chrome requires a secure connection (SSL) in order to use the Webcam. Read more [here](https://sites.google.com/a/chromium.org/dev/Home/chromium-security/deprecating-powerful-features-on-insecure-origins).
 
 In Safari 5, IE8 and IE9 only the upload works due to no [XHR](http://caniuse.com/#search=XMLHttpRequest) support.
