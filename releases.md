@@ -1,7 +1,12 @@
 # Release Notes
 
+- [Image Picker 1.3.1](#image-picker-131)
 - [Image Picker 1.3](#image-picker-13)
 - [Image Picker 1.2](#image-picker-12)
+
+## Image Picker 1.3.1
+
+- Cast value to int (ImgPicker@getConfigBytes).
 
 ## Image Picker 1.3
 
