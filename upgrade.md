@@ -1,6 +1,11 @@
 # Upgrade Guide
 
+- [Upgrading To 1.3.2 From 1.3](upgrade.md#upgrading-to-132-from-13)
 - [Upgrading To 1.3 From 1.2](upgrade.md#upgrading-to-13-from-12)
+
+## Upgrading To 1.3.2 From 1.3
+
+- Replace `assets/js/jquery.imgpicker.js`.
 
 ## Upgrading To 1.3 From 1.2
 
